@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>O'Taste & See | Home of the Heavy Plates</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Lora:ital,wght@0,400;0,600;1,400&family=Covered+By+Your+Grace&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #D4A017;
+      --gold-light: #F0C040;
+      --gold-dark: #A87800;
+      --green: #4A7C3F;
+      --green-light: #6AAF5E;
+      --green-dark: #2E5228;
+      --cream: #FDF6E3;
+      --warm-brown: #3B2A1A;
+      --brown-mid: #6B4C2A;
+      --text-dark: #2A1A0A;
+      --text-mid: #5C3D1E;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--cream);
+      color: var(--text-dark);
+      font-family: 'Lora', Georgia, serif;
+      overflow-x: hidden;
+    }
+
+    /* ── TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.4;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(74,124,63,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(212,160,23,0.15) 0%, transparent 50%),
+        linear-gradient(160deg, #2E1A0A 0%, #3B2A1A 40%, #4A3020 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 2rem;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 15% 85%, rgba(212,160,23,0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 15%, rgba(74,124,63,0.08) 0%, transparent 40%);
+    }
+
+    /* decorative ring */
+    .hero-ring {
+      position: absolute;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      border: 1px solid rgba(212,160,23,0.12);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: slowSpin 60s linear infinite;
+    }
+    .hero-ring::before {
+      content: '';
+      position: absolute;
+      inset: 40px;
+      border-radius: 50%;
+      border: 1px dashed rgba(212,160,23,0.08);
+    }
+
+    @keyframes slowSpin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+    /* decorative dots */
+    .dot {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: 0.15;
+      animation: float 8s ease-in-out infinite;
+    }
+    .dot:nth-child(1) { width: 6px; height: 6px; top: 20%; left: 12%; animation-delay: 0s; }
+    .dot:nth-child(2) { width: 4px; height: 4px; top: 70%; left: 8%; animation-delay: 2s; }
+    .dot:nth-child(3) { width: 8px; height: 8px; top: 30%; right: 10%; animation-delay: 4s; background: var(--green-light); }
+    .dot:nth-child(4) { width: 5px; height: 5px; top: 75%; right: 15%; animation-delay: 1s; }
+    .dot:nth-child(5) { width: 3px; height: 3px; top: 50%; left: 20%; animation-delay: 3s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+    }
+
+    .hero-logo-wrap {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      animation: fadeUp 1.2s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .logo-icon {
+      margin-bottom: 1rem;
+    }
+
+    /* SVG logo recreation from the photo */
+    .logo-svg { width: 120px; height: 120px; filter: drop-shadow(0 4px 20px rgba(212,160,23,0.3)); }
+
+    .hero-name {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(3.5rem, 10vw, 7rem);
+      font-weight: 900;
+      line-height: 0.9;
+      color: var(--gold-light);
+      letter-spacing: -1px;
+      text-shadow: 0 4px 30px rgba(212,160,23,0.3);
+    }
+
+    .hero-name span {
+      color: var(--green-light);
+    }
+
+    .hero-amp {
+      font-family: 'Covered By Your Grace', cursive;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      color: rgba(255,255,255,0.6);
+      display: block;
+      margin: 0.3rem 0;
+      letter-spacing: 2px;
+    }
+
+    .hero-tagline {
+      font-family: 'Covered By Your Grace', cursive;
+      font-size: clamp(1.1rem, 3vw, 1.6rem);
+      color: rgba(240,192,64,0.85);
+      letter-spacing: 3px;
+      margin-top: 1.2rem;
+      animation: fadeUp 1.2s ease 0.3s both;
+    }
+
+    .hero-divider {
+      width: 120px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 1.5rem auto;
+      animation: fadeUp 1.2s ease 0.5s both;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 2rem;
+      animation: fadeUp 1.2s ease 0.7s both;
+    }
+
+    .btn {
+      padding: 0.9rem 2.2rem;
+      border-radius: 3px;
+      font-family: 'Lora', serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--warm-brown);
+      border: none;
+      box-shadow: 0 4px 20px rgba(212,160,23,0.3);
+    }
+    .btn-gold:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(212,160,23,0.5);
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--gold-light);
+      border: 1px solid rgba(212,160,23,0.5);
+    }
+    .btn-outline:hover {
+      background: rgba(212,160,23,0.1);
+      border-color: var(--gold-light);
+      transform: translateY(-2px);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.3);
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      animation: bounce 2s ease-in-out infinite;
+      z-index: 2;
+    }
+    .scroll-hint::after {
+      content: '↓';
+      display: block;
+      text-align: center;
+      margin-top: 0.3rem;
+      font-size: 1rem;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.4s ease;
+    }
+    nav.scrolled {
+      background: rgba(43,26,10,0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+      padding: 0.7rem 2rem;
+    }
+    .nav-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--gold-light); }
+
+    /* ── SECTION BASE ── */
+    section { position: relative; }
+
+    .section-label {
+      font-family: 'Covered By Your Grace', cursive;
+      font-size: 1rem;
+      letter-spacing: 4px;
+      color: var(--green);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      color: var(--warm-brown);
+      line-height: 1.1;
+    }
+
+    .section-divider {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--green));
+      margin: 1.2rem 0 2rem;
+    }
+
+    /* ── HOURS & LOCATION ── */
+    .hours-location {
+      background: var(--warm-brown);
+      padding: 5rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hours-location::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,160,23,0.06) 0%, transparent 70%);
+    }
+
+    .hl-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .hl-grid .section-label { color: var(--gold-light); }
+    .hl-grid .section-title { color: var(--cream); }
+    .hl-grid .section-divider { background: linear-gradient(90deg, var(--gold), transparent); }
+
+    .hours-list { list-style: none; margin-top: 1rem; }
+    .hours-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      font-size: 0.95rem;
+      color: rgba(253,246,227,0.8);
+    }
+    .hours-list li:last-child { border-bottom: none; }
+    .hours-list .day { font-weight: 600; color: var(--gold-light); }
+    .hours-list .closed { color: rgba(255,255,255,0.35); font-style: italic; }
+    .hours-list .open { color: var(--green-light); }
+
+    .location-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(212,160,23,0.15);
+      border-radius: 4px;
+      padding: 2rem;
+      margin-top: 1rem;
+    }
+
+    .location-card p {
+      color: rgba(253,246,227,0.75);
+      line-height: 1.8;
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .location-card .address-big {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--cream);
+      font-style: italic;
+      margin-bottom: 0.5rem;
+    }
+
+    .map-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.6rem;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--warm-brown);
+      font-family: 'Lora', serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border-radius: 3px;
+      text-decoration: none;
+      transition: all 0.3s;
+      letter-spacing: 0.5px;
+    }
+    .map-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212,160,23,0.4); }
+
+    /* ── MENU ── */
+    .menu-section {
+      background: var(--cream);
+      padding: 5rem 2rem;
+      position: relative;
+    }
+
+    .menu-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='1' fill='%23D4A017' opacity='0.08'/%3E%3C/svg%3E");
+    }
+
+    .menu-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .menu-header { text-align: center; margin-bottom: 3.5rem; }
+    .menu-header .section-divider { margin: 1.2rem auto 0; }
+
+    .menu-note {
+      font-family: 'Covered By Your Grace', cursive;
+      font-size: 1.1rem;
+      color: var(--brown-mid);
+      margin-top: 1rem;
+      letter-spacing: 1px;
+    }
+
+    .menu-cats {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .menu-cat-btn {
+      padding: 0.5rem 1.4rem;
+      border-radius: 30px;
+      font-family: 'Lora', serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: 1px solid rgba(74,124,63,0.3);
+      background: transparent;
+      color: var(--green-dark);
+      letter-spacing: 0.5px;
+    }
+    .menu-cat-btn.active, .menu-cat-btn:hover {
+      background: var(--green);
+      color: white;
+      border-color: var(--green);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .menu-item {
+      background: white;
+      border-radius: 4px;
+      padding: 1.5rem;
+      border-left: 4px solid var(--gold);
+      box-shadow: 0 2px 15px rgba(59,42,26,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: none;
+    }
+    .menu-item.visible {
+      display: block;
+      animation: fadeIn 0.4s ease both;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .menu-item:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(59,42,26,0.12); }
+
+    .item-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--warm-brown);
+      margin-bottom: 0.4rem;
+    }
+    .item-desc {
+      font-size: 0.88rem;
+      color: var(--text-mid);
+      line-height: 1.6;
+      margin-bottom: 0.8rem;
+    }
+    .item-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--green);
+    }
+    .item-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      margin-left: 0.5rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .tag-popular { background: rgba(212,160,23,0.15); color: var(--gold-dark); }
+    .tag-new { background: rgba(74,124,63,0.15); color: var(--green-dark); }
+
+    .menu-footer-note {
+      text-align: center;
+      margin-top: 2.5rem;
+      font-style: italic;
+      color: var(--brown-mid);
+      font-size: 0.9rem;
+    }
+
+    /* ── ORDER ── */
+    .order-section {
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 100%);
+      padding: 5rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .order-section::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.06);
+      top: -150px; right: -150px;
+    }
+    .order-section::after {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.06);
+      bottom: -100px; left: -100px;
+    }
+
+    .order-inner { max-width: 600px; margin: 0 auto; position: relative; z-index: 1; }
+
+    .order-section .section-label { color: rgba(255,255,255,0.6); }
+    .order-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      color: white;
+      margin-bottom: 1rem;
+    }
+    .order-sub {
+      color: rgba(255,255,255,0.75);
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+    }
+    .order-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    .btn-white {
+      background: white;
+      color: var(--green-dark);
+      border: none;
+      font-weight: 700;
+    }
+    .btn-white:hover {
+      background: var(--cream);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+    .btn-ghost:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: white;
+      transform: translateY(-2px);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #1A0F05;
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    .footer-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--gold-light);
+      margin-bottom: 0.5rem;
+    }
+    .footer-tagline {
+      font-family: 'Covered By Your Grace', cursive;
+      color: rgba(255,255,255,0.4);
+      font-size: 1rem;
+      letter-spacing: 2px;
+      margin-bottom: 1.5rem;
+    }
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .footer-links a {
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--gold-light); }
+    .footer-copy {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 1px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hl-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .nav-links { display: none; }
+      .hero-name { font-size: 3.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="#" class="nav-brand">O'Taste & See</a>
+    <ul class="nav-links">
+      <li><a href="#hours">Hours</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#order">Order</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="hero-ring"></div>
+
+    <div class="hero-logo-wrap">
+      <!-- Logo SVG inspired by the O'Taste & See sign -->
+      <div class="logo-icon">
+        <svg class="logo-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="goldGrad" cx="50%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="#F0C040"/>
+              <stop offset="100%" stop-color="#A87800"/>
+            </radialGradient>
+            <radialGradient id="greenGrad" cx="50%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="#6AAF5E"/>
+              <stop offset="100%" stop-color="#2E5228"/>
+            </radialGradient>
+          </defs>
+          <!-- Fork -->
+          <g transform="translate(22, 10)">
+            <rect x="10" y="0" width="3" height="45" rx="1.5" fill="url(#goldGrad)"/>
+            <rect x="6" y="0" width="2" height="18" rx="1" fill="url(#goldGrad)"/>
+            <rect x="14" y="0" width="2" height="18" rx="1" fill="url(#goldGrad)"/>
+            <path d="M6 18 Q10 24 14 18" fill="none" stroke="url(#goldGrad)" stroke-width="2"/>
+          </g>
+          <!-- Spoon -->
+          <g transform="translate(68, 10)">
+            <rect x="10" y="22" width="3" height="23" rx="1.5" fill="url(#goldGrad)"/>
+            <ellipse cx="11.5" cy="14" rx="8" ry="12" fill="url(#goldGrad)" opacity="0.9"/>
+          </g>
+          <!-- Heart in center -->
+          <g transform="translate(60,52)">
+            <path d="M0,-10 C-3,-16 -12,-16 -12,-8 C-12,-2 0,8 0,8 C0,8 12,-2 12,-8 C12,-16 3,-16 0,-10Z"
+              fill="url(#greenGrad)" opacity="0.9"/>
+          </g>
+          <!-- Plate arc -->
+          <ellipse cx="60" cy="85" rx="38" ry="10" fill="none" stroke="url(#goldGrad)" stroke-width="2" opacity="0.5"/>
+          <ellipse cx="60" cy="85" rx="28" ry="7" fill="none" stroke="url(#goldGrad)" stroke-width="1" opacity="0.3"/>
+        </svg>
+      </div>
+
+      <div class="hero-name">
+        O'Taste
+        <span class="hero-amp">&amp; See</span>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-tagline">" Home of the Heavy Plates "</div>
+
+      <div class="hero-cta">
+        <a href="#menu" class="btn btn-gold">View Menu</a>
+        <a href="https://www.doordash.com/store/o-taste-%26-see-irondale-30929735/?utm_campaign=gpa&pickup=true" target="_blank" class="btn btn-outline">Order Now</a>
+      </div>
+    </div>
+
+    <div class="scroll-hint">scroll</div>
+  </section>
+
+  <!-- HOURS & LOCATION -->
+  <section class="hours-location" id="hours">
+    <div class="hl-grid">
+      <!-- Hours -->
+      <div>
+        <span class="section-label">We're open</span>
+        <h2 class="section-title">Hours of<br>Operation</h2>
+        <div class="section-divider"></div>
+        <ul class="hours-list">
+          <li><span class="day">Sunday</span> <span class="open">12:00 PM – 6:00 PM</span></li>
+          <li><span class="day">Monday</span> <span class="closed">Closed</span></li>
+          <li><span class="day">Tuesday</span> <span class="closed">Closed</span></li>
+          <li><span class="day">Wednesday</span> <span class="open">11:00 AM – 6:00 PM</span></li>
+          <li><span class="day">Thursday</span> <span class="open">11:00 AM – 6:00 PM</span></li>
+          <li><span class="day">Friday</span> <span class="open">11:00 AM – 6:00 PM</span></li>
+          <li><span class="day">Saturday</span> <span class="closed">Closed</span></li>
+        </ul>
+        <p style="color:rgba(253,246,227,0.4); font-size:0.8rem; margin-top:1.5rem; font-style:italic;">* Hours may vary on holidays. Call ahead to confirm.</p>
+      </div>
+
+      <!-- Location -->
+      <div>
+        <span class="section-label">Find us</span>
+        <h2 class="section-title">Our<br>Location</h2>
+        <div class="section-divider"></div>
+        <div class="location-card">
+          <p class="address-big">7001 Crestwood Blvd, Suite 1012<br>Birmingham, AL 35210</p>
+          <p>Come on in and experience the warmth of home-cooked soul food. We can't wait to serve you!</p>
+          <a href="https://maps.google.com/?q=7001+Crestwood+Blvd+Suite+1012+Birmingham+AL+35210" target="_blank" class="map-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Get Directions
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section class="menu-section" id="menu">
+    <div class="menu-inner">
+      <div class="menu-header">
+        <span class="section-label">What we're cooking</span>
+        <h2 class="section-title">The Heavy Plates Menu</h2>
+        <p class="menu-note">Made fresh, made with love, made heavy ✦</p>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="menu-cats">
+        <button class="menu-cat-btn active" onclick="filterMenu('all', this)">All</button>
+        <button class="menu-cat-btn" onclick="filterMenu('entrees', this)">Entrées</button>
+        <button class="menu-cat-btn" onclick="filterMenu('tuesday', this)">Tuesday Special</button>
+        <button class="menu-cat-btn" onclick="filterMenu('sides', this)">Sides</button>
+        <button class="menu-cat-btn" onclick="filterMenu('soup', this)">Soup</button>
+        <button class="menu-cat-btn" onclick="filterMenu('desserts', this)">Desserts</button>
+        <button class="menu-cat-btn" onclick="filterMenu('drinks', this)">Drinks</button>
+      </div>
+
+      <div class="menu-grid" id="menuGrid">
+
+        <!-- ENTREES -->
+        <div class="menu-item visible" data-cat="entrees"><div class="item-name">Neck Bones</div><div class="item-price">$19.00</div></div>
+        <div class="menu-item visible" data-cat="entrees"><div class="item-name">Fried Chicken</div><div class="item-price">$19.00</div></div>
+        <div class="menu-item visible" data-cat="entrees"><div class="item-name">Liver &amp; Onions</div><div class="item-price">$19.00</div></div>
+        <div class="menu-item visible" data-cat="entrees"><div class="item-name">Baked Chicken</div><div class="item-price">$21.00</div></div>
+        <div class="menu-item visible" data-cat="entrees"><div class="item-name">Spaghetti With Italian Meatballs</div><div class="item-price">$12.00 – $19.00</div></div>
+        <div class="menu-item visible" data-cat="entrees"><div class="item-name">Cajun Chicken Pasta</div><div class="item-price">$19.00</div></div>
+        <div class="menu-item visible" data-cat="entrees"><div class="item-name">BBQ Ribs</div><div class="item-price">$24.00</div></div>
+        <div class="menu-item visible" data-cat="entrees"><div class="item-name">Fish &amp; Grits</div><div class="item-price">$22.00</div></div>
+        <div class="menu-item visible" data-cat="entrees"><div class="item-name">Turkey Wings</div><div class="item-price">$19.00</div></div>
+        <div class="menu-item visible" data-cat="entrees"><div class="item-name">Lasagna</div><div class="item-price">$20.00</div></div>
+        <div class="menu-item visible" data-cat="entrees"><div class="item-name">Smothered Chicken Over Rice</div><div class="item-price">$22.50</div></div>
+        <div class="menu-item visible" data-cat="entrees"><div class="item-name">Catfish</div><div class="item-price">$25.00</div></div>
+        <div class="menu-item visible" data-cat="entrees"><div class="item-name">Spaghetti Casserole</div><div class="item-price">$19.00</div></div>
+        <div class="menu-item visible" data-cat="entrees"><div class="item-name">Meatloaf</div><div class="item-price">$19.00</div></div>
+        <div class="menu-item visible" data-cat="entrees"><div class="item-name">Chicken, Broccoli &amp; Cheese Casserole</div><div class="item-price">$18.00</div></div>
+        <div class="menu-item visible" data-cat="entrees"><div class="item-name">Catfish &amp; Wings</div><div class="item-price">$22.00</div></div>
+        <div class="menu-item visible" data-cat="entrees"><div class="item-name">Turkey Neck</div><div class="item-price">$19.00</div></div>
+        <div class="menu-item visible" data-cat="entrees"><div class="item-name">Braised Red Wine Beef Short Ribs</div><div class="item-price">$30.00</div></div>
+        <div class="menu-item visible" data-cat="entrees"><div class="item-name">2 Fried Pork Chops</div><div class="item-price">$25.00</div></div>
+        <div class="menu-item visible" data-cat="entrees"><div class="item-name">2 Smothered Pork Chops</div><div class="item-price">$25.00</div></div>
+        <div class="menu-item visible" data-cat="entrees"><div class="item-name">Beef Tips</div><div class="item-price">$19.50</div></div>
+        <div class="menu-item visible" data-cat="entrees"><div class="item-name">Hamburger Steak</div><div class="item-price">$19.00</div></div>
+        <div class="menu-item visible" data-cat="entrees"><div class="item-name">1 Smothered Pork Chop</div><div class="item-price">$19.00</div></div>
+        <div class="menu-item visible" data-cat="entrees"><div class="item-name">Red Wine BBQ Chicken</div><div class="item-price">$19.00</div></div>
+        <div class="menu-item visible" data-cat="entrees"><div class="item-name">1 Fried Pork Chop</div><div class="item-price">$15.00</div></div>
+        <div class="menu-item visible" data-cat="entrees"><div class="item-name">Oxtails <span class="item-tag tag-popular">★ Popular</span></div><div class="item-price">$33.00</div></div>
+
+        <!-- TUESDAY SPECIAL -->
+        <div class="menu-item visible" data-cat="tuesday">
+          <div class="item-name">6pc Party Wings Only</div>
+          <div class="item-desc">Plain Seasoned · Lemon Pepper · Hot Honey</div>
+          <div class="item-price">$5.99</div>
+        </div>
+        <div class="menu-item visible" data-cat="tuesday">
+          <div class="item-name">6pc Party Wings &amp; Fries</div>
+          <div class="item-desc">Plain Seasoned · Lemon Pepper · Hot Honey</div>
+          <div class="item-price">$8.99</div>
+        </div>
+        <div class="menu-item visible" data-cat="tuesday">
+          <div class="item-name">10pc Party Wings Only</div>
+          <div class="item-desc">Plain Seasoned · Lemon Pepper · Hot Honey</div>
+          <div class="item-price">$9.99</div>
+        </div>
+        <div class="menu-item visible" data-cat="tuesday">
+          <div class="item-name">10pc Party Wings &amp; Fries</div>
+          <div class="item-desc">Plain Seasoned · Lemon Pepper · Hot Honey</div>
+          <div class="item-price">$10.99</div>
+        </div>
+        <div class="menu-item visible" data-cat="tuesday"><div class="item-name">Whiting Fish Sandwich</div><div class="item-price">$8.99</div></div>
+        <div class="menu-item visible" data-cat="tuesday"><div class="item-name">Catfish Sandwich</div><div class="item-price">$11.99</div></div>
+        <div class="menu-item visible" data-cat="tuesday"><div class="item-name">Shrimp &amp; Grits</div><div class="item-price">$18.00</div></div>
+        <div class="menu-item visible" data-cat="tuesday"><div class="item-name">Catfish &amp; Grits</div><div class="item-price">$18.00</div></div>
+        <div class="menu-item visible" data-cat="tuesday"><div class="item-name">Whiting Fish &amp; Grits</div><div class="item-price">$13.00</div></div>
+        <div class="menu-item visible" data-cat="tuesday"><div class="item-name">Whiting Fish W/ 2 Sides</div><div class="item-price">$15.00</div></div>
+        <div class="menu-item visible" data-cat="tuesday"><div class="item-name">Catfish W/ 2 Sides</div><div class="item-price">$20.00</div></div>
+        <div class="menu-item visible" data-cat="tuesday"><div class="item-name">Catfish, Shrimp &amp; Grits</div><div class="item-price">$28.00</div></div>
+        <div class="menu-item visible" data-cat="tuesday"><div class="item-name">Whiting Fish, Shrimp &amp; Grits</div><div class="item-price">$25.00</div></div>
+
+        <!-- SIDES -->
+        <div class="menu-item visible" data-cat="sides"><div class="item-name">Macaroni &amp; Cheese <span class="item-tag tag-popular">★ Popular</span></div><div class="item-price">$4.50</div></div>
+        <div class="menu-item visible" data-cat="sides"><div class="item-name">Collard Greens</div><div class="item-price">$4.50</div></div>
+        <div class="menu-item visible" data-cat="sides"><div class="item-name">Yams</div><div class="item-price">$4.50</div></div>
+        <div class="menu-item visible" data-cat="sides"><div class="item-name">Sweet Potato Soufflé</div><div class="item-price">$4.50</div></div>
+        <div class="menu-item visible" data-cat="sides"><div class="item-name">Blackeyed Peas</div><div class="item-price">$4.50</div></div>
+        <div class="menu-item visible" data-cat="sides"><div class="item-name">Sweet Peas</div><div class="item-price">$4.50</div></div>
+        <div class="menu-item visible" data-cat="sides"><div class="item-name">Hushpuppies</div><div class="item-price">$4.00</div></div>
+        <div class="menu-item visible" data-cat="sides"><div class="item-name">Cabbage</div><div class="item-price">$4.50</div></div>
+        <div class="menu-item visible" data-cat="sides"><div class="item-name">Baked Beans</div><div class="item-price">$4.00 – $4.50</div></div>
+        <div class="menu-item visible" data-cat="sides"><div class="item-name">Fried Okra</div><div class="item-price">$4.50</div></div>
+        <div class="menu-item visible" data-cat="sides"><div class="item-name">Pinto Beans</div><div class="item-price">$4.50</div></div>
+        <div class="menu-item visible" data-cat="sides"><div class="item-name">Sweet Potato Cornbread</div><div class="item-price">$1.00</div></div>
+        <div class="menu-item visible" data-cat="sides"><div class="item-name">Field Peas</div><div class="item-price">$4.50</div></div>
+        <div class="menu-item visible" data-cat="sides"><div class="item-name">Rice &amp; Gravy</div><div class="item-price">$4.50</div></div>
+        <div class="menu-item visible" data-cat="sides"><div class="item-name">Coleslaw</div><div class="item-price">$4.00</div></div>
+        <div class="menu-item visible" data-cat="sides"><div class="item-name">Potato Salad</div><div class="item-price">$4.50</div></div>
+        <div class="menu-item visible" data-cat="sides"><div class="item-name">Grits</div><div class="item-price">$4.00</div></div>
+        <div class="menu-item visible" data-cat="sides"><div class="item-name">Lima Beans</div><div class="item-price">$4.50</div></div>
+        <div class="menu-item visible" data-cat="sides"><div class="item-name">Fried Corn</div><div class="item-price">$4.50</div></div>
+        <div class="menu-item visible" data-cat="sides"><div class="item-name">Broccoli &amp; Cheese Casserole</div><div class="item-price">$4.50</div></div>
+        <div class="menu-item visible" data-cat="sides"><div class="item-name">Green Beans</div><div class="item-price">$4.50</div></div>
+        <div class="menu-item visible" data-cat="sides"><div class="item-name">Dressing</div><div class="item-price">$4.50</div></div>
+        <div class="menu-item visible" data-cat="sides"><div class="item-name">French Fries</div><div class="item-price">$4.50</div></div>
+        <div class="menu-item visible" data-cat="sides"><div class="item-name">Corn On The Cob</div><div class="item-price">$4.50</div></div>
+        <div class="menu-item visible" data-cat="sides"><div class="item-name">Mixed Vegetables</div><div class="item-price">$4.50</div></div>
+
+        <!-- SOUP -->
+        <div class="menu-item visible" data-cat="soup">
+          <div class="item-name">Soup from the Soul</div>
+          <div class="item-desc">Hearty, homemade soup made with love — ask about today's variety</div>
+          <div class="item-price">$12.00</div>
+        </div>
+
+        <!-- DESSERTS -->
+        <div class="menu-item visible" data-cat="desserts"><div class="item-name">Bread Pudding</div><div class="item-price">$12.00</div></div>
+        <div class="menu-item visible" data-cat="desserts"><div class="item-name">Red Velvet Cake</div><div class="item-price">$4.50</div></div>
+        <div class="menu-item visible" data-cat="desserts"><div class="item-name">Pound Cake</div><div class="item-price">$4.50</div></div>
+        <div class="menu-item visible" data-cat="desserts"><div class="item-name">Carrot Cake</div><div class="item-price">$4.50</div></div>
+        <div class="menu-item visible" data-cat="desserts"><div class="item-name">Banana Pudding <span class="item-tag tag-popular">★ Popular</span></div><div class="item-price">$4.50</div></div>
+        <div class="menu-item visible" data-cat="desserts"><div class="item-name">Caramel Cake</div><div class="item-price">$4.50</div></div>
+        <div class="menu-item visible" data-cat="desserts"><div class="item-name">German Chocolate Cake</div><div class="item-price">$4.50</div></div>
+        <div class="menu-item visible" data-cat="desserts"><div class="item-name">Butter Pecan Cake</div><div class="item-price">$4.50</div></div>
+        <div class="menu-item visible" data-cat="desserts"><div class="item-name">Key Lime Cake</div><div class="item-price">$4.50</div></div>
+        <div class="menu-item visible" data-cat="desserts"><div class="item-name">Peach Dump Cake</div><div class="item-price">$4.50</div></div>
+
+        <!-- DRINKS -->
+        <div class="menu-item visible" data-cat="drinks"><div class="item-name">16oz Country Punch</div><div class="item-price">$4.50</div></div>
+        <div class="menu-item visible" data-cat="drinks"><div class="item-name">½ Gallon Country Punch</div><div class="item-price">$7.00</div></div>
+        <div class="menu-item visible" data-cat="drinks"><div class="item-name">Gallon Country Punch</div><div class="item-price">$14.00</div></div>
+
+      </div>
+
+      <p class="menu-footer-note">Menu items and prices are subject to change. Ask about our daily specials! · Tuesday menu available Tuesdays only.</p>
+    </div>
+  </section>
+
+  <!-- ORDER -->
+  <section class="order-section" id="order">
+    <div class="order-inner">
+      <span class="section-label">Ready to eat?</span>
+      <h2 class="order-title">Order Your Heavy Plate Today</h2>
+      <p class="order-sub">Order pickup through DoorDash, Uber Eats, or our online ordering portal — or stop by during our hours. We'll have it hot and ready!</p>
+      <div class="order-btns">
+        <a href="https://www.doordash.com/store/o-taste-%26-see-irondale-30929735/?utm_campaign=gpa&pickup=true" target="_blank" class="btn btn-white">🚗 Order on DoorDash</a>
+        <a href="https://order.online/store/-30929735/?pickup=true&hideModal=true&utm_source=gfo&rwg_token=AFd1xnEv_bC_7jK0JmcZlLfoXN5d8XJBpfAiOskgkM45skjZ9L1f8si-40JH3jaKymBunY2xqDJtYEvUbrrjboeMNgx_KWpG3w%3D%3D" target="_blank" class="btn btn-ghost">🌐 Order Online</a>
+        <a href="https://www.ubereats.com/store/o-taste-%26-see-7001-crestwood-boulevard/pb4PmS0-XBu_oCgXuWvwng?diningMode=PICKUP&utm_campaign=CM2508147-search-free-nonbrand-google-pas_e_all_acq_Global&utm_medium=search-free-nonbrand&utm_source=google-pas" target="_blank" class="btn btn-ghost">🛵 Order on Uber Eats</a>
+        <a href="https://www.postmates.com/store/o-taste-%26-see-7001-crestwood-boulevard/pb4PmS0-XBu_oCgXuWvwng?diningMode=PICKUP&utm_campaign=CM2508147-search-free-nonbrand-google-pas_e_all_acq_Global&utm_medium=search-free-nonbrand&utm_source=google-pas" target="_blank" class="btn btn-ghost">🛵 Order on Postmates</a>
+        <a href="#hours" class="btn btn-ghost">View Hours</a>
+      </div>
+            <p style="color:rgba(255,255,255,0.6); font-size:1rem; margin-top:1.5rem;">📞 <a href="tel:+12058736390" style="color:rgba(255,255,255,0.8); text-decoration:none; font-weight:600;">(205) 873-6390</a></p>
+      <p style="color:rgba(255,255,255,0.4); font-size:0.8rem; margin-top:0.5rem; font-style:italic;">Walk-ins always welcome during open hours</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-name">O'Taste & See</div>
+    <div class="footer-tagline">Home of the Heavy Plates</div>
+
+    <div style="margin: 1rem 0 1.5rem;">
+      <a href="https://www.facebook.com/Otasteandsee1/" target="_blank" style="display:inline-flex; align-items:center; gap:8px; background:#1877F2; color:white; padding:10px 22px; border-radius:4px; text-decoration:none; font-family:Georgia,serif; font-size:0.9rem; font-weight:700; letter-spacing:0.5px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        Follow us on Facebook
+      </a>
+      <p style="color:rgba(255,255,255,0.45); font-size:0.82rem; margin-top:0.75rem; font-style:italic; letter-spacing:0.5px;">Follow us for weekly updates on menu changes &amp; store hours</p>
+    </div>
+    <div class="footer-links">
+      <a href="#home">Home</a>
+      <a href="#hours">Hours</a>
+      <a href="#menu">Menu</a>
+      <a href="#order">Order</a>
+      <a href="https://www.facebook.com/Otasteandsee1/" target="_blank">Facebook</a>
+    </div>
+    <p class="footer-copy">© 2026 O'Taste & See · 7001 Crestwood Blvd, Suite 1012, Birmingham, AL 35210 · <a href="tel:+12058736390" style="color:rgba(255,255,255,0.3); text-decoration:none;">(205) 873-6390</a> · All Rights Reserved</p>
+  </footer>
+
+  <script>
+    // Nav scroll effect
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Menu filter
+    function filterMenu(cat, btn) {
+      document.querySelectorAll('.menu-cat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.menu-item').forEach(item => {
+        const show = cat === 'all' || item.dataset.cat === cat;
+        item.classList.toggle('visible', show);
+      });
+    }
+  </script>
+</body>
+</html>
